@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:String x:Key="AppTitle">客户机部署工具</system:String>
+    <system:String x:Key="LanguageMenuHeader">语言</system:String>
+    <system:String x:Key="LanguageOptionEnglish">英文</system:String>
+    <system:String x:Key="LanguageOptionChinese">中文</system:String>
+    <system:String x:Key="LanguageCurrent">当前语言：</system:String>
+    <system:String x:Key="LanguageChange">语言更改</system:String>
+    <system:String x:Key="gbNet">网络</system:String>
+    <system:String x:Key="cbIP">本地连接IP</system:String>
+    <system:String x:Key="cbwakena">网络</system:String>
+</ResourceDictionary>

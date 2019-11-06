@@ -1,0 +1,380 @@
+﻿<Window x:Class="Deploytool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ipTextBoxDemo="clr-namespace:IPTextBoxDemo"
+        Title="客户机部署工具 1.4" Height="593.569" Width="1479" Closed="Window_Closed">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70*"/>
+            <ColumnDefinition Width="18*"/>
+            <ColumnDefinition Width="101*"/>
+            <ColumnDefinition Width="179*"/>
+        </Grid.ColumnDefinitions>
+        <TabControl HorizontalAlignment="Left" Height="546" Margin="10,10,0,0" VerticalAlignment="Top" Width="1080" SelectionChanged="TabControl_SelectionChanged" Grid.ColumnSpan="4">
+            <TabItem x:Name="ti_main" Header="主界面">
+                <Grid Background="#FFE5E5E5" HorizontalAlignment="Left" Width="810">
+                    <Button x:Name="BTN_EXEC" Content="执行" HorizontalAlignment="Left" Margin="551,414,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+
+                    <GroupBox Header="网络" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="392" Width="390" RenderTransformOrigin="0.502,0.191">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="179*"/>
+                            </Grid.ColumnDefinitions>
+                            <CheckBox x:Name="cb_ip" Content="IP" HorizontalAlignment="Left" Margin="10,53,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                            <CheckBox x:Name="cb_waken" Content="允许网卡唤醒" HorizontalAlignment="Left" Margin="10,186,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                            <CheckBox x:Name="cb_firewall" Content="关闭防火墙" HorizontalAlignment="Left" Margin="10,222,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                            <TextBox x:Name="tb_mac" HorizontalAlignment="Left" Height="24" Margin="94,304,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
+                            <Label Content="MAC" HorizontalAlignment="Left" Margin="10,302,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.042,-0.071" Grid.ColumnSpan="2"/>
+                            <Label Content="连接名称" HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.042,-0.071" Grid.ColumnSpan="2"/>
+                            <TextBox  x:Name="tb_device" HorizontalAlignment="Left" Height="23" Margin="94,276,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
+                            <Label Content="网卡" HorizontalAlignment="Left" Margin="10,274,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.042,-0.071" Grid.ColumnSpan="2"/>
+                            <CheckBox x:Name="cb_gateway" Content="网关" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                            <CheckBox x:Name="cb_dns" Content="DNS" HorizontalAlignment="Left" Margin="10,119,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                            <TextBox x:Name="tb_dns" HorizontalAlignment="Left" Height="23" Margin="94,120,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
+                            <ComboBox ToolTip="如果网卡为Realtek牌,使用网络唤醒需在网卡属性中关闭'环保节能'" x:Name="cbb_interfaces" Margin="94,246,97,0" VerticalAlignment="Top" Loaded="ComboBox_Loaded" SelectionChanged="ComboBox_SelectionChanged" Grid.Column="1"/>
+                            <Label Content="MAC将被保存到" HorizontalAlignment="Left" Margin="10,331,0,0" VerticalAlignment="Top" Width="99" Grid.ColumnSpan="2"/>
+                            <TextBox x:Name="tb_save" HorizontalAlignment="Left" Height="24" Margin="94,332,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
+                            <TextBox x:Name="tb_ip" HorizontalAlignment="Left" Height="23" Margin="94,50,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
+                            <TextBox x:Name="tb_gateway" HorizontalAlignment="Left" Height="23" Margin="94,85,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
+                            <Button x:Name="btn_attribute" Content="网卡属性" HorizontalAlignment="Left" Margin="269,246,0,0" VerticalAlignment="Top" Width="75" Click="adapter_attribute" Grid.Column="1"/>
+                            <TextBox x:Name="tb_mask" HorizontalAlignment="Left" Height="23" Margin="94,153,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
+                            <Label x:Name="lb_mask" Content="子网掩码" HorizontalAlignment="Left" Margin="0,151,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.042,-0.071" Grid.Column="1"/>
+                            <TextBox x:Name="tb_title" HorizontalAlignment="Left" Height="23" Margin="94,12,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
+                            <Label x:Name="lb_title" Content="设备名" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.042,-0.071" Grid.Column="1"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="IP分配方案" HorizontalAlignment="Left" Margin="418,0,0,0" VerticalAlignment="Top" Height="392" Width="368">
+                        <Grid>
+                            <GroupBox Header="打开文件" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="59" Width="336"/>
+                            <TextBox x:Name="tb_ipfile" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="250" Margin="27,36,0,0"/>
+                            <Button Content="浏览" HorizontalAlignment="Left" Margin="282,36,0,0" VerticalAlignment="Top" Width="48" Click="Button_Click_4"/>
+                        </Grid>
+                    </GroupBox>
+                    <TreeView Name="treeview_ip" HorizontalAlignment="Left" Height="275" Margin="437,103,0,0" VerticalAlignment="Top" Width="337" SelectedItemChanged="SelectionChanged"/>
+                    <Button Name="btn_pause" Content="暂停" HorizontalAlignment="Left" Margin="631,414,0,0" VerticalAlignment="Top" Width="75" Click="Pause"/>
+                    <Button Name="btn_cancel" Content="取消" HorizontalAlignment="Left" Margin="711,414,0,0" VerticalAlignment="Top" Width="75" Click="Cancel"/>
+                    <ProgressBar x:Name="ProgressBar" Margin="10,414,410,77.333"  Value="0" />
+
+                </Grid>
+            </TabItem>
+            <TabItem  x:Name="ti_uninstall" Header="软件卸载">
+                <Grid Background="#FFE5E5E5" HorizontalAlignment="Left"  Width="1100">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition Width="6*"/>
+                            <ColumnDefinition Width="534*"/>
+                        </Grid.ColumnDefinitions>
+                        <GroupBox Header="软件卸载" HorizontalAlignment="Left" Margin="11.856,51,0,0" VerticalAlignment="Top" Height="461" Width="1037" Grid.ColumnSpan="3" Grid.Column="1">
+                            <Grid>
+                                <GroupBox Header="已安装第三方软件" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" Width="470" Height="423">
+                                    <ListView x:Name ="lv_installed" HorizontalAlignment="Left" Height="377" Margin="10,10,0,0" VerticalAlignment="Top" Width="442">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="名称" Width="120" DisplayMemberBinding="{Binding name}" />
+                                                <GridViewColumn Header="开发商" Width="120" DisplayMemberBinding="{Binding publisher}" />
+                                                <GridViewColumn Header="路径" Width="120" DisplayMemberBinding="{Binding UninstallString}" />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </GroupBox>
+                                <GroupBox Header="待卸载软件" HorizontalAlignment="Left" Margin="545,14,0,0" VerticalAlignment="Top" Height="423" Width="470">
+                                    <ListView x:Name ="lv_uninstalled" HorizontalAlignment="Left" Height="377" VerticalAlignment="Top" Width="442" Margin="10,10,0,0">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="名称" Width="120" DisplayMemberBinding="{Binding name}" />
+                                                <GridViewColumn Header="开发商" Width="120" DisplayMemberBinding="{Binding publisher}" />
+                                                <GridViewColumn Header="路径" Width="120" DisplayMemberBinding="{Binding UninstallString}" />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </GroupBox>
+                                <Button Content="&gt;&gt;" HorizontalAlignment="Left" Margin="485,182,0,0" VerticalAlignment="Top" Width="55"  Click="progMgr_add"/>
+                                <Button Content="&lt;&lt;" HorizontalAlignment="Left" Margin="485,292,0,0" VerticalAlignment="Top" Width="55" Click="progMgr_del"/>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="本功能会打开软件自带卸载程序.                                                                                                  *2345管家的卸载程序不能被调用,会打开快捷方式所在文件夹,请双击运行." VerticalAlignment="Top" Height="34" Width="517"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="ti_shortcut" Header="删除桌面图标">
+                <Grid Background="#FFE5E5E5" HorizontalAlignment="Left"  Width="1100">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="85*"/>
+                        <ColumnDefinition Width="273*"/>
+                        <ColumnDefinition Width="12*"/>
+                        <ColumnDefinition Width="730*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.ColumnSpan="4" Margin="0,0,0,0.333">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="6*"/>
+                            <ColumnDefinition Width="14*"/>
+                            <ColumnDefinition Width="12*"/>
+                            <ColumnDefinition Width="317*"/>
+                            <ColumnDefinition Width="12*"/>
+                            <ColumnDefinition Width="11*"/>
+                            <ColumnDefinition Width="728*"/>
+                        </Grid.ColumnDefinitions>
+                        <GroupBox Header="删除桌面图标" HorizontalAlignment="Left" Margin="12,51,0,0" VerticalAlignment="Top" Height="461" Width="1037" Grid.ColumnSpan="6" Grid.Column="1">
+                            <Grid>
+                                <GroupBox Header="所有桌面图标" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" Width="470" Height="423">
+                                    <ListView x:Name ="lv_alllnk" HorizontalAlignment="Left" Height="377" Margin="10,10,0,0" VerticalAlignment="Top" Width="442">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="名称" Width="120" DisplayMemberBinding="{Binding name}" />
+                                                <GridViewColumn Header="目标文件" Width="120" DisplayMemberBinding="{Binding target}" />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </GroupBox>
+                                <GroupBox Header="待删除图标" HorizontalAlignment="Left" Margin="545,14,0,0" VerticalAlignment="Top" Height="423" Width="470">
+                                    <ListView x:Name ="lv_dellnk" HorizontalAlignment="Left" Height="377" VerticalAlignment="Top" Width="442" Margin="10,10,0,0">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="名称" Width="120" DisplayMemberBinding="{Binding name}" />
+                                                <GridViewColumn Header="目标文件" Width="120" DisplayMemberBinding="{Binding target}" />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </GroupBox>
+                                <Button Content="&gt;&gt;" HorizontalAlignment="Left" Margin="485,182,0,0" VerticalAlignment="Top" Width="55"  Click="desklnk_add"/>
+                                <Button Content="&lt;&lt;" HorizontalAlignment="Left" Margin="485,292,0,0" VerticalAlignment="Top" Width="55" Click="desklnk_del"/>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                    <Label Content="此功能为软件卸载功能的补充.部分软件卸载,需要在此处删除对应的桌面图标,大部分时候会自动匹配." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="ti_startmenu" Header="删除开始菜单">
+                <Grid Background="#FFE5E5E5" HorizontalAlignment="Left"  Width="1100">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition Width="6*"/>
+                            <ColumnDefinition Width="534*"/>
+                        </Grid.ColumnDefinitions>
+                        <GroupBox Header="删除开始菜单" HorizontalAlignment="Left" Margin="11.856,51,0,0" VerticalAlignment="Top" Height="461" Width="1037" Grid.ColumnSpan="3" Grid.Column="1">
+                            <Grid>
+                                <GroupBox Header="所有开始菜单" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" Width="470" Height="423">
+                                    <ListView x:Name ="lv_allstartmenu" HorizontalAlignment="Left" Height="377" Margin="10,10,0,0" VerticalAlignment="Top" Width="442">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="名称" Width="120" DisplayMemberBinding="{Binding name}" />
+                                                <GridViewColumn Header="目标文件" Width="120" DisplayMemberBinding="{Binding target}" />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </GroupBox>
+                                <GroupBox Header="待删除开始菜单" HorizontalAlignment="Left" Margin="545,14,0,0" VerticalAlignment="Top" Height="423" Width="470">
+                                    <ListView x:Name ="lv_delstartmenu" HorizontalAlignment="Left" Height="377" VerticalAlignment="Top" Width="442" Margin="10,10,0,0">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="名称" Width="120" DisplayMemberBinding="{Binding name}" />
+                                                <GridViewColumn Header="目标文件" Width="120" DisplayMemberBinding="{Binding target}" />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </GroupBox>
+                                <Button Content="&gt;&gt;" HorizontalAlignment="Left" Margin="485,182,0,0" VerticalAlignment="Top" Width="55"  Click="startmenu_add"/>
+                                <Button Content="&lt;&lt;" HorizontalAlignment="Left" Margin="485,292,0,0" VerticalAlignment="Top" Width="55" Click="startmenu_del"/>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                    <Label Content="此功能为软件卸载功能的补充.部分软件卸载,需要在此处删除对应的开始菜单,大部分时候会自动匹配." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="ti_soft" Header="软件部署">
+                <Grid Background="#FFE5E5E5" HorizontalAlignment="Left" Width="810">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="235*"/>
+                        <ColumnDefinition Width="243*"/>
+                        <ColumnDefinition Width="332*"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Header="软件部署" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="493" Width="779" Grid.ColumnSpan="3">
+                        <Grid>
+
+                            <GroupBox Header="开关机软件" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="127" Width="367">
+                                <Grid>
+                                    <CheckBox x:Name="cb_swsoft_startup" Content="开关机软件 开机运行" Checked="PathCheck" HorizontalAlignment="Left" Margin="10,78,0,0" VerticalAlignment="Top"/>
+                                    <CheckBox x:Name="cb_swsoft_privilege" Content="开关机软件 管理员运行" Checked="PathCheck" HorizontalAlignment="Left" Margin="10,43,0,0" VerticalAlignment="Top"/>
+                                    <Label Content="文件路径" Margin="10,4,281.333,66"/>
+                                    <TextBox x:Name="tb_ShotdownSoft_Path" Margin="68,10,63.333,75"/>
+                                    <Button x:Name="btn_ShotdownSoft_Browser" Content="浏览" HorizontalAlignment="Left" Margin="297,10,0,0" VerticalAlignment="Top" Width="48" Click="ShutdownSoft_Browser"/>
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="RealVNC server" HorizontalAlignment="Left" Margin="10,158,0,0" VerticalAlignment="Top" Height="146" Width="367">
+                                <Grid>
+                                    <CheckBox x:Name="cb_vnc" Content="RealVNC server 安装" Checked="PathCheck" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.051,1.506"/>
+                                    <Label Content="安装密钥" Margin="10,40,254.667,49.667"/>
+                                    <TextBox x:Name="tb_vnc_key" Margin="79,45,10.667,59.667"/>
+                                    <Label Content="登陆密码" Margin="10,72,254.667,17.667"/>
+                                    <TextBox x:Name="tb_vnc_pwd" Margin="79,77,10.667,27.667"/>
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="其他" HorizontalAlignment="Left" Margin="390,10,0,0" VerticalAlignment="Top" Height="294" Width="367">
+                                <Grid>
+                                    <CheckBox x:Name="cb_power" Content="关闭电源节能选项" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"/>
+                                    <CheckBox x:Name="cb_zoom" Content="关闭字体放大*Windeows注销后生效" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,43,0,0"/>
+                                    <CheckBox x:Name="cb_klite" Content="K-Lite(视频解码库) 安装" Checked="PathCheck" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.051,1.506"/>
+                                    <CheckBox x:Name="cb_PowerButton" Content="电源按钮无动作" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,21,0,0"/>
+                                    <CheckBox x:Name="cb_chrome" Content="Chrome(浏览器) 安装" Checked="PathCheck" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.051,1.506"/>
+                                    <CheckBox x:Name="cb_del_2345" Content="删除2345系列软件的弹窗程序" HorizontalAlignment="Left" Margin="10,105,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.051,1.506"/>
+                                    <CheckBox x:Name="cb_flash" Content="Flash安装(ActiveX/NPAPI/PPAPI)*无广告" Checked="PathCheck" HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.051,1.506"/>
+                                    <CheckBox x:Name="cb_wuauserv" Content="'Windows升级服务' 关" Checked="PathCheck" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.051,1.506"/>
+                                    <CheckBox x:Name="cb_activation" Content="Windows激活" Checked="PathCheck" HorizontalAlignment="Left" Margin="10,147,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.051,1.506"/>
+                                    <CheckBox x:Name="cb_rdp" Content="'远程桌面' 开" Checked="PathCheck" HorizontalAlignment="Left" Margin="10,189,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.051,1.506"/>
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="Office 2010" HorizontalAlignment="Left" Margin="10,332,0,0" VerticalAlignment="Top" Height="127" Width="367">
+                                <Grid>
+                                    <Label Content="文件路径" Margin="10,4,281.333,66"/>
+                                    <TextBox x:Name="tb_Office_Path" Margin="68,10,63.333,75"/>
+                                    <Button x:Name="btn_Office_Browser" Content="浏览" HorizontalAlignment="Left" Margin="297,10,0,0" VerticalAlignment="Top" Width="48" Click="Office_Browser"/>
+                                    <CheckBox x:Name="cb_office" Content="Office 2010 安装并激活" Checked="PathCheck" HorizontalAlignment="Left" Margin="23,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.051,1.506"/>
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="ti_other" Header="PsExec环境">
+                <Grid Background="#FFE5E5E5" HorizontalAlignment="Left" Width="810">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="131*"/>
+                        <ColumnDefinition Width="392*"/>
+                        <ColumnDefinition Width="287*"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Header="环境设置" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Height="181" Width="367" Grid.ColumnSpan="2">
+                        <Grid>
+                            <CheckBox x:Name="cb_LimitBlankPasswordUse" Content="关 '空密码受限'" Checked="PathCheck" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top"/>
+                            <CheckBox x:Name="cb_ForceGuest" Content="关 '远端号限Guest'" Checked="PathCheck" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top"/>
+                            <CheckBox x:Name="cb_UacRemoteRestric" Content="关 'UAC远端限制'" Checked="PathCheck" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top"/>
+                            <CheckBox x:Name="cb_DefaltShare" Content="默认共享(admin$)" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                            <TextBox  x:Name="tb_DefaltShare" ToolTip="CMD等依赖" HorizontalAlignment="Left" Height="23" Margin="127,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="140"/>
+                            <Label x:Name="lb_userName" Content="Windows用户名" HorizontalAlignment="Left" Margin="10,122,0,0" VerticalAlignment="Top"/>
+                            <TextBox x:Name="tb_userName" HorizontalAlignment="Left" Height="23" Margin="127,124,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="140"/>
+                            <CheckBox x:Name="cb_EnableSMB1" Content="开 'SMBv1'(*Win10)" HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top"/>
+                        </Grid>
+                    </GroupBox>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="遇到需要修改大量客户机的情况,如: 填写内容服务器信息, 安装Office, 删除广告软件等,可使用PsExec软件自动化处理. *PsExec为CMD远端操作软件, 利用SMB协议, 依赖Windows账号权限.                                                                             *基于PsExec的批量管理软件正在开发中." VerticalAlignment="Top" Width="614" Grid.ColumnSpan="3"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="ti_startup" Header="启动项">
+                <Grid Background="#FFE5E5E5" HorizontalAlignment="Left"  Width="1100">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition Width="6*"/>
+                            <ColumnDefinition Width="534*"/>
+                        </Grid.ColumnDefinitions>
+                        <GroupBox Header="启动项管理" HorizontalAlignment="Left" Margin="11.856,51,0,0" VerticalAlignment="Top" Height="461" Width="1037" Grid.ColumnSpan="3" Grid.Column="1">
+                            <Grid>
+                                <GroupBox Header="已生效启动项" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" Width="470" Height="423">
+                                    <ListView x:Name ="lv_startup" HorizontalAlignment="Left" Height="377" Margin="10,10,0,0" VerticalAlignment="Top" Width="442">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="名称" Width="120" DisplayMemberBinding="{Binding name}" />
+                                                <GridViewColumn Header="路径" Width="120" DisplayMemberBinding="{Binding target}" />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </GroupBox>
+                                <GroupBox Header="待删除启动项" HorizontalAlignment="Left" Margin="545,14,0,0" VerticalAlignment="Top" Height="423" Width="470">
+                                    <ListView x:Name ="lv_del_startup" HorizontalAlignment="Left" Height="377" VerticalAlignment="Top" Width="442" Margin="10,10,0,0">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="名称" Width="120" DisplayMemberBinding="{Binding name}" />
+                                                <GridViewColumn Header="路径" Width="120" DisplayMemberBinding="{Binding target}" />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </GroupBox>
+                                <Button Content="&gt;&gt;" HorizontalAlignment="Left" Margin="485,182,0,0" VerticalAlignment="Top" Width="55"  Click="startupMgr_add"/>
+                                <Button Content="&lt;&lt;" HorizontalAlignment="Left" Margin="485,292,0,0" VerticalAlignment="Top" Width="55" Click="startupMgr_del"/>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="ti_PlusebeZK" Header="中控客户端">
+                <Grid Background="#FFE5E5E5" HorizontalAlignment="Left" Width="810">
+                    <GroupBox Header="中控客户端" ToolTip="此功能需授权" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="494" Width="790">
+                        <Grid>
+                            <GroupBox Header="客户端注册" Margin="10,11,396,297">
+                                <Grid>
+                                    <CheckBox x:Name="cb_PlusebeZK_reg" Content="中控客户端注册" Checked="PathCheck" HorizontalAlignment="Left" Margin="10,119,0,0" VerticalAlignment="Top"/>
+                                    <Label Content="特征码" Margin="10,42,209,60"></Label>
+                                    <TextBox x:Name="tb_PlusbeZK_SN" Margin="74,42,63,71"></TextBox>
+                                    <Label Content="秘钥" Margin="10,79,209,26"/>
+                                    <TextBox x:Name="tb_PlusbeZK_key" Margin="74,83,63,26"/>
+                                    <TextBox x:Name="tb_PlusbeZK_Path" Margin="74,10,63,108"/>
+                                    <Button x:Name="btn_PlusbeZK_Browser" Content="浏览" HorizontalAlignment="Left" Margin="302,10,0,0" VerticalAlignment="Top" Width="48" Click="PlusbeZK_Browser" RenderTransformOrigin="-1.007,0.621"/>
+                                    <Label Content="文件路径" Margin="10,10,286,80"/>
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="内容服务器" Margin="425,11,10,297">
+                                <Grid>
+                                    <CheckBox x:Name="cb_PlusebeZK_Content_Server" Checked="PathCheck" Content="内容服务器填写" HorizontalAlignment="Left" Margin="10,114,0,0" VerticalAlignment="Top"/>
+                                    <Label Content="服务器地址" Margin="10,10,241,97"/>
+                                    <TextBox x:Name="tb_PlusebeZK_Content_Server" Margin="90,10,14,97"/>
+                                    <Label Content="标识" Margin="10,48,220,59"/>
+                                    <TextBox x:Name="tb_PlusebeZK_Identity" Margin="90,48,14,59"/>
+                                    <Label Content="请求间隔" Margin="10,86,220,31"/>
+                                    <TextBox x:Name="tb_PlusebeZK_Interval" Margin="90,86,14,31"/>
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="基本设置" Margin="425,209,10,99">
+                                <Grid>
+                                    <CheckBox x:Name="cb_PlusebeZK_TopMost" Checked="PathCheck" Content="置顶" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top"/>
+                                    <CheckBox x:Name="cb_PlusebeZK_HideCursor" Checked="PathCheck" Content="隐藏鼠标" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top"/>
+                                    <CheckBox x:Name="cb_PlusebeZK_Startup" Checked="PathCheck" Content="开机启动" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top"/>
+                                    <CheckBox x:Name="cb_PlusebeZK_Resolution" Checked="PathCheck" Content="分辨率" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                                    <CheckBox x:Name="cb_PlusebeZK_RunAsAdmin" Checked="PathCheck" Content="管理员运行" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top"/>
+                                    <Label Content="宽:" Margin="109,8,188,109"/>
+                                    <TextBox x:Name="tb_screenWidth" Margin="143,10,123,109"/>
+                                    <Label Content="高:" Margin="218,8,74,109"/>
+                                    <TextBox x:Name="tb_screenHeight" Margin="257,10,10,109"/>
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="视频设置" Margin="10,209,396,99">
+                                <Grid>
+                                    <CheckBox x:Name="cb_PlusebeZK_AutoPlay" Checked="PathCheck" Content="自动播放" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                                    <CheckBox x:Name="cb_PlusebeZK_LoopMode" Checked="PathCheck" Content="循环模式" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top"/>
+                                    <ComboBox x:Name="cbb_PlusebeZK_LoopMode" Margin="80,31,111,0" VerticalAlignment="Top" Loaded="cbb_LoopMode_Loaded" SelectionChanged="cbb_LoopMode_SelectionChanged"/>
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="ti_Zkplay" Header="客户端2.0">
+                <Grid Background="#FFE5E5E5" HorizontalAlignment="Left" Width="810">
+                    <GroupBox Header="客户端2.0" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="494" Width="790">
+                        <Grid>
+                            <GroupBox Header="客户端注册" Margin="10,11,396,252.667">
+                                <Grid>
+                                    <CheckBox x:Name="cb_Zkplay_reg" Content="客户端2.0注册" Checked="PathCheck" HorizontalAlignment="Left" Margin="10,119,0,0" VerticalAlignment="Top"/>
+                                    <Label Content="特征码" Margin="10,42,209,60"></Label>
+                                    <TextBox x:Name="tb_Zkplay_SN" Margin="74,42,63,109.333"></TextBox>
+                                    <Label Content="秘钥" Margin="10,79,209,61"/>
+                                    <TextBox x:Name="tb_Zkplay_key" Margin="74,83,63,69.333"/>
+                                    <TextBox x:Name="tb_Zkplay_Path" Margin="74,10,63,146.333"/>
+                                    <Button x:Name="btn_Zkplay_Browser" Content="浏览" HorizontalAlignment="Left" Margin="302,10,0,0" VerticalAlignment="Top" Width="48" Click="Zkplay_Browser" RenderTransformOrigin="-1.007,0.621"/>
+                                    <Label Content="文件路径" Margin="10,10,286,80"/>
+                                    <CheckBox x:Name="cb_Zkplay_Startup" Checked="PathCheck" Content="开机启动" HorizontalAlignment="Left" Margin="10,140,0,0" VerticalAlignment="Top"/>
+                                    <CheckBox x:Name="cb_Zkplay_Env" Checked="PathCheck" Content="运行库安装" HorizontalAlignment="Left" Margin="10,161,0,-3" VerticalAlignment="Top"/>
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>

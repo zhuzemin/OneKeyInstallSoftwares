@@ -1,0 +1,32 @@
+﻿<Window x:Class="Deploytool.xaml.Prompt"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+        Height="400"
+        Width="400"
+        Title="拷贝软件到客户机">
+    <Grid>
+        <ListView x:Name="lv_Softs" Height="303" HorizontalAlignment="Left" VerticalAlignment="Top" Width="378" Margin="5,31,0,0">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn x:Name="gvc_Softs">
+                        <GridViewColumn.Header>
+                            <CheckBox Click="CheckBox_Select_All">全选</CheckBox>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox Click="CheckBox_Click" Tag="{Binding}"></CheckBox>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="软件名" />
+                </GridView>
+        </ListView.View>
+        </ListView>
+        <Button x:Name="btn_confirm" Content="确认" HorizontalAlignment="Left" Margin="303,339,0,0" VerticalAlignment="Top" Width="75" Click="CopyFiles"/>
+        <Label x:Name="lb_summary" Content="Label" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Window>
